@@ -1,0 +1,31 @@
+﻿{
+  "consoleColors": {
+    "foreground": "white",
+    "background": "black",
+
+    "fatal": {
+      "foreground": "black",
+      "background": "red"
+    },
+
+    "error": {
+      "foreground": "red",
+      "background": "black"
+    },
+
+    "warn": {
+      "foreground": "yellow",
+      "background": "black"
+    },
+
+    "info": {
+      "foreground": "white",
+      "background": "black"
+    },
+
+    "debug": {
+      "foreground": "cyan",
+      "background": "black"
+    }
+  }
+}
