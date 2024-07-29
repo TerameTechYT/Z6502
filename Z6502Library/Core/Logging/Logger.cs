@@ -41,11 +41,11 @@ public class Logger {
     }
 
     private static void Log(string message, string source, Severity severity, bool isAssert = false) {
-        if (isAssert) {
-            Console.Write("[ASSERT]: ");
-        }
+        if (Configuration.Instance == null)
+            return;
 
-        AssertFatal(Configuration.Instance == null, "Configuration is null!", "Logger");
+        if (isAssert)
+            Console.Write("[ASSERT]: ");
 
         string formattedMessage = string.Format(Configuration.LogFormat, message, source, severity);
         SetConsoleColors(severity);

@@ -31,6 +31,7 @@ public class Processor : IProcessor {
         Logger.LogInfo("Starting Execution Loop", "Processor");
         while (this._cycleCount > 0) {
             ProcessorInstruction instruction = this.Process();
+
             instruction.Execute();
         }
         Logger.LogInfo("Ended Loop", "Processor");

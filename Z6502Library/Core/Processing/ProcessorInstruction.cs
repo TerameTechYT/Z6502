@@ -15,6 +15,14 @@ public class ProcessorInstruction : Instruction {
         Logger.LogDebug("Executing Instruction", $"Instruction - {instructionName}");
 
         switch (this.InstructionType) {
+            case InstructionType.JSR_ABSOLUTE: {
+                ushort address = this.Memory.FetchShort();
+                Logger.LogDebug($"Jump Address 0x{address:X2} ({address})", $"Instruction - {instructionName}");
+                this.Memory.WriteShort(this.Memory.StackPointer, this.Memory.StackPointer - 1);
+                this.Memory.StackPointer.Increment();
+                this.Memory.ProgramCounter.SetRegister(address);
+            }
+            break;
             case InstructionType.LDA_IMMEDIATE: {
                 byte data = this.Memory.FetchByte();
                 this.Memory.Accumulator.SetRegister(data);
@@ -28,22 +36,33 @@ public class ProcessorInstruction : Instruction {
                 this.Memory.Accumulator.SetRegister(data);
             }
             break;
-            case InstructionType.LDA_ZEROPAGEX:
-                break;
-            case InstructionType.LDA_ABSOLUTE:
-                break;
-            case InstructionType.LDA_ABSOLUTEX:
-                break;
-            case InstructionType.LDA_ABSOLUTEY:
-                break;
-            case InstructionType.LDA_INDIRECTX:
-                break;
-            case InstructionType.LDA_INDIRECTY:
-                break;
+            case InstructionType.LDA_ZEROPAGEX: {
+                byte address = this.Memory.FetchByte();
+                address += this.Memory.IndexRegisterX;
+                Logger.LogDebug($"Jump Address 0x{address:X2} ({address})", $"Instruction - {instructionName}");
+                byte data = this.Memory.ReadByte(address);
+
+                this.Memory.Accumulator.SetRegister(data);
+            }
+            break;
+            case InstructionType.LDA_ABSOLUTE: {
+            }
+            break;
+            case InstructionType.LDA_ABSOLUTEX: {
+            }
+            break;
+            case InstructionType.LDA_ABSOLUTEY: {
+            }
+            break;
+            case InstructionType.LDA_INDIRECTX: {
+            }
+            break;
+            case InstructionType.LDA_INDIRECTY: {
+            }
+            break;
             case InstructionType.INVALID:
             default: {
-
-                Logger.LogError($"Invalid or Unhandled Instruction: {this.InstructionType}", "Instruction");
+                Logger.LogError($"Invalid or Unhandled Instruction: {(byte) this.InstructionType:X2} ({(byte) this.InstructionType})", "Instruction");
             }
             break;
         }

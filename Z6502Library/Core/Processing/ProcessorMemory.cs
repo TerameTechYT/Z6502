@@ -44,23 +44,119 @@ public class ProcessorMemory : Memory {
         return data;
     }
 
-    public ushort FetchShort() => 0;
+    public void WriteByte(int address, byte value) {
+        this.Data[address] = value;
+        this.Parent.DecrementCycles();
+    }
+    public void WriteByte(byte value) {
+        this.Data[this.ProgramCounter] = value;
+        this.ProgramCounter.Increment();
 
-    public ushort GetShort() => 0;
+        this.Parent.DecrementCycles();
+    }
 
-    public byte ReadShort(int address) => 0;
+    // TODO: Handle Endianness
+    public ushort FetchShort() {
+        ushort leastSignificant = this.FetchByte();
+        ushort mostSignificant = this.FetchByte();
 
-    public uint FetchInt() => 0;
+        return leastSignificant |= (byte) (mostSignificant << 8);
+    }
 
-    public uint GetInt() => 0;
+    // TODO: Handle Endianness
+    public ushort GetShort() {
+        ushort leastSignificant = this.GetByte();
+        ushort mostSignificant = this.GetByte();
 
-    public byte ReadInt(int address) => 0;
+        return leastSignificant |= (byte) (mostSignificant << 8);
+    }
 
-    public ulong FetchLong() => 0;
+    // TODO: Handle Endianness
+    public ushort ReadShort(int address) {
+        ushort leastSignificant = this.ReadByte(address);
+        ushort mostSignificant = this.ReadByte(address + 1);
 
-    public ulong GetLong() => 0;
+        return leastSignificant |= (byte) (mostSignificant << 8);
+    }
 
-    public byte ReadLong(int address) => 0;
+    // TODO: Handle Endianness
+    public void WriteShort(int address, ushort value) {
+        this.WriteByte(address, (byte) (value & 0xFF));
+        this.WriteByte(address + 1, (byte) (value >> 8));
+    }
+
+    public void WriteShort(ushort value) {
+        this.WriteByte(this.ProgramCounter, (byte) (value & 0xFF));
+        this.WriteByte(this.ProgramCounter + 1, (byte) (value >> 8));
+    }
+
+    // TODO: Handle Endianness
+    public uint FetchInt() {
+        uint leastSignificant = this.FetchShort();
+        uint mostSignificant = this.FetchShort();
+
+        return leastSignificant |= (ushort) (mostSignificant >> 16);
+    }
+
+    // TODO: Handle Endianness
+    public uint GetInt() {
+        uint leastSignificant = this.GetShort();
+        uint mostSignificant = this.GetShort();
+
+        return leastSignificant |= (ushort) (mostSignificant >> 16);
+    }
+
+    // TODO: Handle Endianness
+    public uint ReadInt(int address) {
+        uint leastSignificant = this.ReadShort(address);
+        uint mostSignificant = this.ReadShort(address + 2);
+
+        return leastSignificant |= (ushort) (mostSignificant >> 16);
+    }
+
+    // TODO: Handle Endianness
+    public void WriteInt(int address, uint value) {
+
+    }
+
+    // TODO: Handle Endianness
+    public void WriteInt(uint value) {
+
+    }
+
+    // TODO: Handle Endianness
+    public ulong FetchLong() {
+        ulong leastSignificant = this.FetchInt();
+        ulong mostSignificant = this.FetchInt();
+
+        return leastSignificant |= (uint) (mostSignificant >> 32);
+    }
+
+    // TODO: Handle Endianness
+    public ulong GetLong() {
+        ulong leastSignificant = this.GetInt();
+        ulong mostSignificant = this.GetInt();
+
+        return leastSignificant |= (uint) (mostSignificant >> 32);
+    }
+
+    // TODO: Handle Endianness
+    public ulong ReadLong(int address) {
+        ulong leastSignificant = this.ReadInt(address);
+        ulong mostSignificant = this.ReadInt((byte) (address + 4));
+
+        return leastSignificant |= (uint) (mostSignificant >> 32);
+    }
+
+    // TODO: Handle Endianness
+    public void WriteLong(int address, ulong value) {
+
+    }
+
+    // TODO: Handle Endianness
+    public void WriteLong(ulong value) {
+
+    }
 
     public void SetFlags() {
         Logger.LogDebug("Setting Memory Flags", "Memory");

@@ -2,6 +2,11 @@
 
 public enum InstructionType : byte {
     INVALID = 0x0,
+
+    // JUMP TO SUBROUTINE
+    JSR_ABSOLUTE = 0x20,
+
+    // LOAD ACCUMULATOR
     LDA_IMMEDIATE = 0xA9,
     LDA_ZEROPAGE = 0xA5,
     LDA_ZEROPAGEX = 0xB5,
