@@ -29,17 +29,17 @@ public class Register8 : IRegister8 {
 
     public void Decrement() {
         this.Value--;
-        Logger.LogDebug($"Decremented Register (8 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Decremented Register (8 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void Increment() {
         this.Value--;
-        Logger.LogDebug($"Incremented Register (8 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Incremented Register (8 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void SetRegister(byte value) {
         this.Value = value;
-        Logger.LogDebug($"Set Register (8 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Set Register (8 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public byte GetRegister() => this.Value;

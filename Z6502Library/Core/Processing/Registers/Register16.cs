@@ -29,17 +29,17 @@ public class Register16 : IRegister16 {
 
     public void Decrement() {
         this.Value--;
-        Logger.LogDebug($"Decremented Register (16 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Decremented Register (16 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void Increment() {
         this.Value--;
-        Logger.LogDebug($"Incremented Register (16 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Incremented Register (16 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void SetRegister(ushort value) {
         this.Value = value;
-        Logger.LogDebug($"Set Register (16 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Set Register (16 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public ushort GetRegister() => this.Value;

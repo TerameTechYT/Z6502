@@ -22,17 +22,17 @@ public class Register32 : IRegister32 {
 
     public void Decrement() {
         this.Value--;
-        Logger.LogDebug($"Decremented Register (32 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Decremented Register (32 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void Increment() {
         this.Value--;
-        Logger.LogDebug($"Incremented Register (32 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Incremented Register (32 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public void SetRegister(uint value) {
         this.Value = value;
-        Logger.LogDebug($"Set Register (32 bit) {this.Name}, value is now {this.Value:X2} ({this.Value})", "Register");
+        Logger.LogDebug($"Set Register (32 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 
     public uint GetRegister() => this.Value;
