@@ -2,166 +2,117 @@
 using Z6502.Core.Enums;
 using Z6502.Core.Extensions;
 using Z6502.Core.Logging;
+using Z6502.Core.Processing.Registers;
 
-namespace Z6502.Core.Processing
-{
-    public class ProcessorMemory : Memory
-    {
-        public ProcessorRegister ProgramCounter = new("ProgramCounter", RegisterType.SixteenBit, 0, 0xFFFC);
-        public ProcessorRegister StackPointer = new("StackPointer", RegisterType.EightBit, 0, 0x0100);
+namespace Z6502.Core.Processing;
 
-        public ProcessorRegister Accumulator = new("Accumulator", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister IndexRegisterX = new("IndexRegisterX", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister IndexRegisterY = new("IndexRegisterY", RegisterType.EightBit, 0, 0);
+public class ProcessorMemory : Memory {
+    public Register8 ProgramCounter = new("ProgramCounter", RegisterType.SixteenBit, 0, 0xFFFC);
+    public Register8 StackPointer = new("StackPointer", RegisterType.EightBit, 0, 0x0100);
 
-        public ProcessorRegister CarryFlag = new("CarryFlag", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister ZeroFlag = new("ZeroFlag", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister NegativeFlag = new("NegativeFlag", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister OverflowFlag = new("OverflowFlag", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister InterruptDisable = new("InterruptDisable", RegisterType.EightBit, 0, 0);
-        public ProcessorRegister DecimalMode = new("DecimalMode", RegisterType.EightBit, 0, 0);
+    public Register8 Accumulator = new("Accumulator", RegisterType.EightBit, 0, 0);
+    public Register8 IndexRegisterX = new("IndexRegisterX", RegisterType.EightBit, 0, 0);
+    public Register8 IndexRegisterY = new("IndexRegisterY", RegisterType.EightBit, 0, 0);
 
-        public ProcessorMemory(int memoryCapacity, Processor parent) : base(memoryCapacity, parent)
-        {
-            Logger.LogInfo($"Memory Initialized with capacity of {((long)memoryCapacity).SizeSuffix(2)}", "Memory");
-        }
+    public Register8 CarryFlag = new("CarryFlag", RegisterType.EightBit, 0, 0);
+    public Register8 ZeroFlag = new("ZeroFlag", RegisterType.EightBit, 0, 0);
+    public Register8 NegativeFlag = new("NegativeFlag", RegisterType.EightBit, 0, 0);
+    public Register8 OverflowFlag = new("OverflowFlag", RegisterType.EightBit, 0, 0);
+    public Register8 InterruptDisable = new("InterruptDisable", RegisterType.EightBit, 0, 0);
+    public Register8 DecimalMode = new("DecimalMode", RegisterType.EightBit, 0, 0);
 
-        public dynamic Fetch(FetchType fetchType)
-        {
-            return fetchType switch
-            {
-                FetchType.FetchByte => FetchByte(),
-                FetchType.GetByte => GetByte(),
+    public ProcessorMemory(int memoryCapacity, Processor parent) : base(memoryCapacity, parent) => Logger.LogInfo($"Memory Initialized with capacity of {((long) memoryCapacity).SizeSuffix(2)}", "Memory");
 
-                FetchType.FetchShort => FetchShort(),
-                FetchType.GetShort => GetShort(),
+    public dynamic Fetch(FetchType fetchType) => fetchType switch {
+        FetchType.FetchByte => this.FetchByte(),
+        FetchType.GetByte => this.GetByte(),
 
-                FetchType.FetchInt => FetchInt(),
-                FetchType.GetInt => GetInt(),
+        FetchType.FetchShort => this.FetchShort(),
+        FetchType.GetShort => this.GetShort(),
 
-                FetchType.FetchLong => FetchLong(),
-                FetchType.GetLong => GetLong(),
+        FetchType.FetchInt => this.FetchInt(),
+        FetchType.GetInt => this.GetInt(),
 
-                _ => throw new NotImplementedException(),
-            };
-        }
+        FetchType.FetchLong => this.FetchLong(),
+        FetchType.GetLong => this.GetLong(),
 
-        public dynamic Read(ReadType fetchType, int address)
-        {
-            return fetchType switch
-            {
-                ReadType.ReadByte => ReadByte(address),
-                ReadType.ReadShort => ReadShort(address),
-                ReadType.ReadInt => ReadInt(address),
-                ReadType.ReadLong => ReadLong(address),
+        _ => throw new NotImplementedException(),
+    };
 
-                _ => throw new NotImplementedException(),
-            };
-        }
+    public dynamic Read(ReadType fetchType, int address) => fetchType switch {
+        ReadType.ReadByte => this.ReadByte(address),
+        ReadType.ReadShort => this.ReadShort(address),
+        ReadType.ReadInt => this.ReadInt(address),
+        ReadType.ReadLong => this.ReadLong(address),
 
-        private byte FetchByte()
-        {
-            byte data = Data[ProgramCounter.RegisterValue];
-            ProgramCounter.Increment();
-            Parent.DecrementCycles();
+        _ => throw new NotImplementedException(),
+    };
 
-            return data;
-        }
+    private byte FetchByte() {
+        byte data = this.Data[this.ProgramCounter.RegisterValue];
+        this.ProgramCounter.Increment();
+        this.Parent.DecrementCycles();
 
-        private byte GetByte()
-        {
-            byte data = Data[ProgramCounter.RegisterValue];
-            Parent.DecrementCycles();
+        return data;
+    }
 
-            return data;
-        }
+    private byte GetByte() {
+        byte data = this.Data[this.ProgramCounter.RegisterValue];
+        this.Parent.DecrementCycles();
 
-        private byte ReadByte(int address)
-        {
-            byte data = Data[address];
-            Parent.DecrementCycles();
+        return data;
+    }
 
-            return data;
-        }
+    private byte ReadByte(int address) {
+        byte data = this.Data[address];
+        this.Parent.DecrementCycles();
 
-        private ushort FetchShort()
-        {
+        return data;
+    }
 
-            return 0;
-        }
+    private ushort FetchShort() => 0;
 
-        private ushort GetShort()
-        {
+    private ushort GetShort() => 0;
 
-            return 0;
-        }
+    private byte ReadShort(int address) => 0;
 
-        private byte ReadShort(int address)
-        {
+    private uint FetchInt() => 0;
 
-            return 0;
-        }
+    private uint GetInt() => 0;
 
-        private uint FetchInt()
-        {
-            return 0;
-        }
+    private byte ReadInt(int address) => 0;
 
-        private uint GetInt()
-        {
-            return 0;
-        }
+    private ulong FetchLong() => 0;
 
-        private byte ReadInt(int address)
-        {
+    private ulong GetLong() => 0;
 
-            return 0;
-        }
+    private byte ReadLong(int address) => 0;
 
-        private ulong FetchLong()
-        {
-            return 0;
-        }
+    public void SetFlags() {
+        Logger.LogDebug("Setting Memory Flags", "Memory");
+        bool isZero = this.Accumulator.GetRegister() == 0;
+        this.ZeroFlag.SetRegister(isZero ? 1 : 0);
 
-        private ulong GetLong()
-        {
-            return 0;
-        }
+        bool isNegative = (this.Accumulator.GetRegister() & 0b10000000) > 0;
+        this.NegativeFlag.SetRegister(isNegative ? 1 : 0);
+        Logger.LogDebug("Set Memory Flags", "Memory");
+    }
 
-        private byte ReadLong(int address)
-        {
+    public override void Reset() {
+        base.Reset();
 
-            return 0;
-        }
+        this.ProgramCounter.Reset();
+        this.StackPointer.Reset();
 
-        public void SetFlags()
-        {
-            Logger.LogDebug("Setting Memory Flags", "Memory");
-            bool isZero = Accumulator.GetRegister() == 0;
-            ZeroFlag.SetRegister(isZero ? 1 : 0);
+        this.Accumulator.Reset();
+        this.IndexRegisterX.Reset();
+        this.IndexRegisterY.Reset();
 
-            bool isNegative = (Accumulator.GetRegister() & 0b10000000) > 0;
-            NegativeFlag.SetRegister(isNegative ? 1 : 0);
-            Logger.LogDebug("Set Memory Flags", "Memory");
-        }
-
-        public override void Reset()
-        {
-            base.Reset();
-
-            ProgramCounter.Reset();
-            StackPointer.Reset();
-
-            Accumulator.Reset();
-            IndexRegisterX.Reset();
-            IndexRegisterY.Reset();
-
-            CarryFlag.Reset();
-            ZeroFlag.Reset();
-            NegativeFlag.Reset();
-            OverflowFlag.Reset();
-            InterruptDisable.Reset();
-            DecimalMode.Reset();
-        }
+        this.CarryFlag.Reset();
+        this.ZeroFlag.Reset();
+        this.NegativeFlag.Reset();
+        this.OverflowFlag.Reset();
+        this.InterruptDisable.Reset();
+        this.DecimalMode.Reset();
     }
 }

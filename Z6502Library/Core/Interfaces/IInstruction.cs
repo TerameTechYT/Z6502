@@ -1,14 +1,17 @@
 ﻿using Z6502.Core.Enums;
 using Z6502.Core.Processing;
 
-namespace Z6502.Core.Interfaces
-{
-    public interface IInstruction
-    {
-        InstructionType InstructionType { get; protected set; }
+namespace Z6502.Core.Interfaces;
 
-        Processor Parent { get; protected set; }
+public interface IInstruction {
+    InstructionType InstructionType {
+        get; protected set;
+    }
 
-        virtual void Execute() { }
+    Processor Parent {
+        get; protected set;
+    }
+
+    virtual void Execute() {
     }
 }

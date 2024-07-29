@@ -1,15 +1,13 @@
-﻿namespace Z6502.Core.Enums
-{
-    public enum FetchType
-    {
-        FetchByte,
-        FetchShort,
-        FetchInt,
-        FetchLong,
+﻿namespace Z6502.Core.Enums;
 
-        GetByte,
-        GetShort,
-        GetInt,
-        GetLong,
-    }
+public enum FetchType {
+    FetchByte,
+    FetchShort,
+    FetchInt,
+    FetchLong,
+
+    GetByte,
+    GetShort,
+    GetInt,
+    GetLong,
 }

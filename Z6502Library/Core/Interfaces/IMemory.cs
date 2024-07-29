@@ -1,15 +1,20 @@
 ﻿using Z6502.Core.Processing;
 
-namespace Z6502.Core.Interfaces
-{
-    public interface IMemory
-    {
-        int MemoryCapacity { get; protected set; }
+namespace Z6502.Core.Interfaces;
 
-        Processor Parent { get; protected set; }
+public interface IMemory {
+    int MemoryCapacity {
+        get; protected set;
+    }
 
-        List<byte> Data { get; protected set; }
+    Processor Parent {
+        get; protected set;
+    }
 
-        virtual void Reset() { }
+    List<byte> Data {
+        get; protected set;
+    }
+
+    virtual void Reset() {
     }
 }

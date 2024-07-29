@@ -2,22 +2,20 @@
 using Z6502.Core.Interfaces;
 using Z6502.Core.Processing;
 
-namespace Z6502.Core.Bases
-{
-    public class Instruction : IInstruction
-    {
-        public InstructionType InstructionType { get; set; } = InstructionType.INVALID;
+namespace Z6502.Core.Bases;
 
-        public Processor Parent { get; set; }
+public class Instruction : IInstruction {
+    public InstructionType InstructionType { get; set; } = InstructionType.INVALID;
 
-        public Instruction(Processor parent, InstructionType instructionType)
-        {
-            Parent = parent;
-            InstructionType = instructionType;
-        }
+    public Processor Parent {
+        get; set;
+    }
 
-        public virtual void Execute()
-        {
-        }
+    public Instruction(Processor parent, InstructionType instructionType) {
+        this.Parent = parent;
+        this.InstructionType = instructionType;
+    }
+
+    public virtual void Execute() {
     }
 }
