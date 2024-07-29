@@ -12,6 +12,10 @@ public interface IInstruction {
         get; protected set;
     }
 
+    ProcessorMemory Memory {
+        get; set;
+    }
+
     virtual void Execute() {
     }
 }

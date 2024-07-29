@@ -3,15 +3,15 @@
 namespace Z6502.Core.Interfaces;
 
 public interface IMemory {
-    int MemoryCapacity {
-        get; protected set;
-    }
-
     Processor Parent {
         get; protected set;
     }
 
     List<byte> Data {
+        get; protected set;
+    }
+
+    int MemoryCapacity {
         get; protected set;
     }
 
