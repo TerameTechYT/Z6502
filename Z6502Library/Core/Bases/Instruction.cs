@@ -4,7 +4,7 @@ using Z6502.Core.Processing;
 
 namespace Z6502.Core.Bases
 {
-    internal class Instruction : IInstruction
+    public class Instruction : IInstruction
     {
         public InstructionType InstructionType { get; set; } = InstructionType.INVALID;
 

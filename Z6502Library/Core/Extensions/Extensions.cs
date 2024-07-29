@@ -1,6 +1,6 @@
 ﻿namespace Z6502.Core.Extensions
 {
-    internal static class Extensions
+    public static class Extensions
     {
         private static readonly string[] SizeSuffixes = { "bytes",
             "kilobytes",

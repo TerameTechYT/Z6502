@@ -1,6 +1,6 @@
 ﻿namespace Z6502.Core.Enums
 {
-    internal enum RegisterType
+    public enum RegisterType
     {
         EightBit = 8,
         SixteenBit = 16,

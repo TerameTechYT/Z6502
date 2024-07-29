@@ -3,7 +3,7 @@ using Z6502.Core.Logging;
 
 namespace Z6502.Core.Config
 {
-    internal sealed class Configuration
+    public sealed class Configuration
     {
         public const string ConfigurationFile = "Configuration.json";
 
@@ -47,7 +47,7 @@ namespace Z6502.Core.Config
         }
     }
 
-    internal sealed class Colors
+    public sealed class Colors
     {
         [JsonProperty("foreground")]
         public required string ForegroundColor { get; set; }
@@ -112,7 +112,7 @@ namespace Z6502.Core.Config
         }
     }
 
-    internal sealed class Color
+    public sealed class Color
     {
         [JsonProperty("foreground")]
         public required string ForegroundColor { get; set; }

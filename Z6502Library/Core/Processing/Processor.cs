@@ -4,7 +4,7 @@ using Z6502.Core.Logging;
 
 namespace Z6502.Core.Processing
 {
-    internal class Processor : IProcessor
+    public class Processor : IProcessor
     {
         public ProcessorMemory Memory { get; set; }
 

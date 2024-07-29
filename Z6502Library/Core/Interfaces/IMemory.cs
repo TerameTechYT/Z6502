@@ -2,7 +2,7 @@
 
 namespace Z6502.Core.Interfaces
 {
-    internal interface IMemory
+    public interface IMemory
     {
         int MemoryCapacity { get; protected set; }
 

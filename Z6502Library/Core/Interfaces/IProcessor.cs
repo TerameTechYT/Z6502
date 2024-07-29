@@ -2,7 +2,7 @@
 
 namespace Z6502.Core.Interfaces
 {
-    internal interface IProcessor
+    public interface IProcessor
     {
         ProcessorMemory Memory { get; protected set; }
 

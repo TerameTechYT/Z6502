@@ -3,7 +3,7 @@ using Z6502.Core.Processing;
 
 namespace Z6502.Core.Interfaces
 {
-    internal interface IInstruction
+    public interface IInstruction
     {
         InstructionType InstructionType { get; protected set; }
 

@@ -3,7 +3,7 @@ using Z6502.Core.Extensions;
 
 namespace Z6502.Core.Logging
 {
-    internal enum Severity
+    public enum Severity
     {
         Fatal,
         Error,
@@ -12,7 +12,7 @@ namespace Z6502.Core.Logging
         Debug
     }
 
-    internal class Logger
+    public class Logger
     {
         public static async Task InitalizeLog()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Z6502.Core.Enums
 {
-    internal enum InstructionType : byte
+    public enum InstructionType : byte
     {
         INVALID = 0x0,
         LDA_IMMEDIATE = 0xA9,

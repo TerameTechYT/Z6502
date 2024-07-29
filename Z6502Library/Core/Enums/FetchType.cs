@@ -1,6 +1,6 @@
 ﻿namespace Z6502.Core.Enums
 {
-    internal enum FetchType
+    public enum FetchType
     {
         FetchByte,
         FetchShort,

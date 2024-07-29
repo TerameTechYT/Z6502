@@ -2,7 +2,7 @@
 
 namespace Z6502.Core.Interfaces
 {
-    internal interface IRegister
+    public interface IRegister
     {
         RegisterType RegisterType { get; protected set; }
 

@@ -5,7 +5,7 @@ using Z6502.Core.Logging;
 
 namespace Z6502.Core.Processing
 {
-    internal class ProcessorMemory : Memory
+    public class ProcessorMemory : Memory
     {
         public ProcessorRegister ProgramCounter = new("ProgramCounter", RegisterType.SixteenBit, 0, 0xFFFC);
         public ProcessorRegister StackPointer = new("StackPointer", RegisterType.EightBit, 0, 0x0100);

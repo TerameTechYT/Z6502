@@ -4,7 +4,7 @@ using Z6502.Core.Logging;
 
 namespace Z6502.Core.Processing
 {
-    internal class ProcessorInstruction : Instruction
+    public class ProcessorInstruction : Instruction
     {
         public ProcessorInstruction(Processor parent, InstructionType instructionType) : base(parent, instructionType)
         {

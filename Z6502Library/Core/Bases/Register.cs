@@ -4,7 +4,7 @@ using Z6502.Core.Logging;
 
 namespace Z6502.Core.Bases
 {
-    internal class Register : IRegister
+    public class Register : IRegister
     {
         public RegisterType RegisterType { get; set; }
 

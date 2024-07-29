@@ -4,7 +4,7 @@ using Z6502.Core.Processing;
 
 namespace Z6502.Core.Bases
 {
-    internal class Memory : IMemory
+    public class Memory : IMemory
     {
         public int MemoryCapacity { get; set; }
 
