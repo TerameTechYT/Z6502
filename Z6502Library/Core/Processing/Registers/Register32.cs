@@ -39,6 +39,6 @@ public class Register32 : IRegister32 {
 
     public void Reset() {
         this.Value = this.ResetValue;
-        Logger.LogDebug($"Resetting Register (32 bit) {this.Name} to {this.ResetValue:X2} ({this.ResetValue})", "Register");
+        Logger.LogDebug($"Resetting Register (32 bit) {this.Name} to 0x{this.ResetValue:X2} ({this.ResetValue})", "Register");
     }
 }
