@@ -33,7 +33,7 @@ public class Register8 : IRegister8 {
     }
 
     public void Increment() {
-        this.Value--;
+        this.Value++;
         Logger.LogDebug($"Incremented Register (8 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 

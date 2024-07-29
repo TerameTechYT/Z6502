@@ -1,5 +1,4 @@
 ﻿using Z6502.Core.Bases;
-using Z6502.Core.Enums;
 using Z6502.Core.Extensions;
 using Z6502.Core.Logging;
 using Z6502.Core.Processing.Registers;
@@ -7,94 +6,79 @@ using Z6502.Core.Processing.Registers;
 namespace Z6502.Core.Processing;
 
 public class ProcessorMemory : Memory {
-    public Register8 ProgramCounter = new("ProgramCounter", RegisterType.SixteenBit, 0, 0xFFFC);
-    public Register8 StackPointer = new("StackPointer", RegisterType.EightBit, 0, 0x0100);
+    public Register16 ProgramCounter = new(0, 0xFFFC, "ProgramCounter");
+    public Register8 StackPointer = new(0, 0b0100, "StackPointer");
 
-    public Register8 Accumulator = new("Accumulator", RegisterType.EightBit, 0, 0);
-    public Register8 IndexRegisterX = new("IndexRegisterX", RegisterType.EightBit, 0, 0);
-    public Register8 IndexRegisterY = new("IndexRegisterY", RegisterType.EightBit, 0, 0);
+    public Register8 Accumulator = new(0, 0, "Accumulator");
+    public Register8 IndexRegisterX = new(0, 0, "IndexRegisterX");
+    public Register8 IndexRegisterY = new(0, 0, "IndexRegisterY");
 
-    public Register8 CarryFlag = new("CarryFlag", RegisterType.EightBit, 0, 0);
-    public Register8 ZeroFlag = new("ZeroFlag", RegisterType.EightBit, 0, 0);
-    public Register8 NegativeFlag = new("NegativeFlag", RegisterType.EightBit, 0, 0);
-    public Register8 OverflowFlag = new("OverflowFlag", RegisterType.EightBit, 0, 0);
-    public Register8 InterruptDisable = new("InterruptDisable", RegisterType.EightBit, 0, 0);
-    public Register8 DecimalMode = new("DecimalMode", RegisterType.EightBit, 0, 0);
+    public Register8 CarryFlag = new(0, 0, "CarryFlag");
+    public Register8 ZeroFlag = new(0, 0, "ZeroFlag");
+    public Register8 NegativeFlag = new(0, 0, "NegativeFlag");
+    public Register8 OverflowFlag = new(0, 0, "OverflowFlag");
+    public Register8 InterruptDisable = new(0, 0, "InterruptDisable");
+    public Register8 DecimalMode = new(0, 0, "DecimalMode");
 
     public ProcessorMemory(int memoryCapacity, Processor parent) : base(memoryCapacity, parent) => Logger.LogInfo($"Memory Initialized with capacity of {((long) memoryCapacity).SizeSuffix(2)}", "Memory");
 
-    public dynamic Fetch(FetchType fetchType) => fetchType switch {
-        FetchType.FetchByte => this.FetchByte(),
-        FetchType.GetByte => this.GetByte(),
-
-        FetchType.FetchShort => this.FetchShort(),
-        FetchType.GetShort => this.GetShort(),
-
-        FetchType.FetchInt => this.FetchInt(),
-        FetchType.GetInt => this.GetInt(),
-
-        FetchType.FetchLong => this.FetchLong(),
-        FetchType.GetLong => this.GetLong(),
-
-        _ => throw new NotImplementedException(),
-    };
-
-    public dynamic Read(ReadType fetchType, int address) => fetchType switch {
-        ReadType.ReadByte => this.ReadByte(address),
-        ReadType.ReadShort => this.ReadShort(address),
-        ReadType.ReadInt => this.ReadInt(address),
-        ReadType.ReadLong => this.ReadLong(address),
-
-        _ => throw new NotImplementedException(),
-    };
-
-    private byte FetchByte() {
-        byte data = this.Data[this.ProgramCounter.RegisterValue];
+    public byte FetchByte() {
+        byte data = this.Data[this.ProgramCounter];
         this.ProgramCounter.Increment();
         this.Parent.DecrementCycles();
 
         return data;
     }
 
-    private byte GetByte() {
-        byte data = this.Data[this.ProgramCounter.RegisterValue];
+    public byte GetByte() {
+        byte data = this.Data[this.ProgramCounter];
         this.Parent.DecrementCycles();
 
         return data;
     }
 
-    private byte ReadByte(int address) {
+    public byte ReadByte(int address) {
         byte data = this.Data[address];
         this.Parent.DecrementCycles();
 
         return data;
     }
 
-    private ushort FetchShort() => 0;
+    public ushort FetchShort() => 0;
 
-    private ushort GetShort() => 0;
+    public ushort GetShort() => 0;
 
-    private byte ReadShort(int address) => 0;
+    public byte ReadShort(int address) => 0;
 
-    private uint FetchInt() => 0;
+    public uint FetchInt() => 0;
 
-    private uint GetInt() => 0;
+    public uint GetInt() => 0;
 
-    private byte ReadInt(int address) => 0;
+    public byte ReadInt(int address) => 0;
 
-    private ulong FetchLong() => 0;
+    public ulong FetchLong() => 0;
 
-    private ulong GetLong() => 0;
+    public ulong GetLong() => 0;
 
-    private byte ReadLong(int address) => 0;
+    public byte ReadLong(int address) => 0;
 
     public void SetFlags() {
         Logger.LogDebug("Setting Memory Flags", "Memory");
-        bool isZero = this.Accumulator.GetRegister() == 0;
-        this.ZeroFlag.SetRegister(isZero ? 1 : 0);
 
-        bool isNegative = (this.Accumulator.GetRegister() & 0b10000000) > 0;
-        this.NegativeFlag.SetRegister(isNegative ? 1 : 0);
+        if (this.Accumulator.GetRegister() == 0) {
+            this.ZeroFlag.SetRegister(1);
+        }
+        else {
+            this.ZeroFlag.SetRegister(0);
+        }
+
+        if ((this.Accumulator.GetRegister() & 0b10000000) > 0) {
+            this.NegativeFlag.SetRegister(1);
+        }
+        else {
+            this.NegativeFlag.SetRegister(0);
+        }
+
         Logger.LogDebug("Set Memory Flags", "Memory");
     }
 

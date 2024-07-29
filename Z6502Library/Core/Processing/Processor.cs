@@ -14,7 +14,7 @@ public class Processor : IProcessor {
     public Processor(int memoryCapacity) => this.Memory = new(memoryCapacity, this);
 
     public virtual ProcessorInstruction Process() {
-        InstructionType type = (InstructionType) this.Memory.Fetch(FetchType.FetchByte);
+        InstructionType type = (InstructionType) this.Memory.FetchByte();
 
         return new ProcessorInstruction(this, type);
     }

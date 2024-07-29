@@ -11,8 +11,13 @@ public class Instruction : IInstruction {
         get; set;
     }
 
+    public ProcessorMemory Memory {
+        get; set;
+    }
+
     public Instruction(Processor parent, InstructionType instructionType) {
         this.Parent = parent;
+        this.Memory = this.Parent.Memory;
         this.InstructionType = instructionType;
     }
 

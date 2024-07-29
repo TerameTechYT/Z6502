@@ -26,7 +26,7 @@ public class Register32 : IRegister32 {
     }
 
     public void Increment() {
-        this.Value--;
+        this.Value++;
         Logger.LogDebug($"Incremented Register (32 bit) {this.Name}, value is now 0x{this.Value:X2} ({this.Value})", "Register");
     }
 

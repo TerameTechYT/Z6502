@@ -16,15 +16,16 @@ public class ProcessorInstruction : Instruction {
 
         switch (this.InstructionType) {
             case InstructionType.LDA_IMMEDIATE: {
-                dynamic data = this.Parent.Memory.Fetch(FetchType.FetchByte);
-                this.Parent.Memory.Accumulator.SetRegister(data);
+                byte data = this.Memory.FetchByte();
+                this.Memory.Accumulator.SetRegister(data);
             }
             break;
             case InstructionType.LDA_ZEROPAGE: {
-                int address = (int) this.Parent.Memory.Fetch(FetchType.FetchByte);
+                byte address = this.Memory.FetchByte();
                 Logger.LogDebug($"Jump Address 0x{address:X2} ({address})", $"Instruction - {instructionName}");
-                dynamic data = this.Parent.Memory.Read(ReadType.ReadByte, address);
-                this.Parent.Memory.Accumulator.SetRegister(data);
+                byte data = this.Memory.ReadByte(address);
+
+                this.Memory.Accumulator.SetRegister(data);
             }
             break;
             case InstructionType.LDA_ZEROPAGEX:
@@ -51,5 +52,5 @@ public class ProcessorInstruction : Instruction {
         this.SetFlags();
     }
 
-    private void SetFlags() => this.Parent.Memory.SetFlags();
+    private void SetFlags() => this.Memory.SetFlags();
 }
